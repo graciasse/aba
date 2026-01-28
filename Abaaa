@@ -56,6 +56,13 @@ T:CreateToggle({Name=__(65,117,116,111,32,82,101,109,97,116,99,104),Callback=fun
 T:CreateToggle({Name=__(65,117,116,111,32,80,97,115,115),Callback=function(v)F.b=v end})
 T:CreateToggle({Name=__(65,117,116,111,32,82,101,115,112,97,119,110),Callback=function(v)F.c=v end})
 T:CreateToggle({Name=__(78,97,110,97,109,105,32,68,79,84),Callback=function(v)F.e=v end})
+T:CreateToggle({
+    Name = __(65,110,116,105,32,65,70,75), -- "Anti AFK"
+    CurrentValue = true,
+    Callback = function(v)
+        F.d = v
+    end
+})
 
 RU.Heartbeat:Connect(function()
     if F.a then
