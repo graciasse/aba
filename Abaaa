@@ -1,0 +1,105 @@
+local _=string.char
+local function __(...)
+    local t={}
+    for i,v in ipairs({...}) do t[#t+1]=_(v) end
+    return table.concat(t)
+end
+
+local R=loadstring(game:HttpGet(__(104,116,116,112,115,58,47,47,115,105,114,105,117,115,46,109,101,110,117,47,114,97,121,102,105,101,108,100)))()
+local S=game:GetService(__(80,108,97,121,101,114,115))
+local P=S.LocalPlayer
+local G=P:WaitForChild(__(80,108,97,121,101,114,71,117,105))
+local RS=game:GetService(__(82,101,112,108,105,99,97,116,101,100,83,116,111,114,97,103,101))
+local RU=game:GetService(__(82,117,110,83,101,114,118,105,99,101))
+local VU=game:GetService(__(86,105,114,116,117,97,108,85,115,101,114))
+local VI=game:GetService(__(86,105,114,116,117,97,108,73,110,112,117,116,77,97,110,97,103,101,114))
+
+local F={a=false,b=false,c=false,d=true,e=false}
+local x,y,z,w,t=false,false,false,false,0
+local k=false
+
+local function A()return workspace:FindFirstChild(__(77,97,112))~=nil end
+local function B()
+    local c=P.Character
+    return c and c.Name:lower():find(__(110,97,110,97,109,105))~=nil
+end
+local function C()
+    VI:SendMouseButtonEvent(0,0,0,true,game,0)
+    task.wait()
+    VI:SendMouseButtonEvent(0,0,0,false,game,0)
+end
+
+P.Idled:Connect(function()
+    if F.d then
+        VU:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        task.wait(1)
+        VU:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end
+end)
+
+P.CharacterAdded:Connect(function()
+    w=false
+    t=tick()
+end)
+
+local W=R:CreateWindow({
+    Name=__(90,97,104,97,110,100,111,32,72,117,98),
+    LoadingTitle=__(90,97,104,97,110,100,111),
+    LoadingSubtitle=__(75,101,121,108,101,115,115),
+    KeySystem=false,
+    ConfigurationSaving={Enabled=true,FolderName=__(90,97,104,97,110,100,111),FileName=__(67,102,103)}
+})
+
+local T=W:CreateTab(__(77,97,105,110),4483362458)
+
+T:CreateToggle({Name=__(65,117,116,111,32,82,101,109,97,116,99,104),Callback=function(v)F.a=v end})
+T:CreateToggle({Name=__(65,117,116,111,32,80,97,115,115),Callback=function(v)F.b=v end})
+T:CreateToggle({Name=__(65,117,116,111,32,82,101,115,112,97,119,110),Callback=function(v)F.c=v end})
+T:CreateToggle({Name=__(78,97,110,97,109,105,32,68,79,84),Callback=function(v)F.e=v end})
+
+RU.Heartbeat:Connect(function()
+    if F.a then
+        local r=G:FindFirstChild(__(82,101,109,97,116,99,104))
+        if r and r.Enabled and not x then
+            RS.RematchVote:FireServer()
+            x=true
+        elseif not(r and r.Enabled) then x=false end
+    end
+    if F.b then
+        local m=G:FindFirstChild(__(77,97,112,66,97,110))
+        if m and m.Enabled and not y then
+            RS.MapBanner:FireServer(__(80,97,115,115))
+            y=true
+        elseif not(m and m.Enabled) then y=false end
+        local b=G:FindFirstChild(__(66,97,110,67,104,111,111,115,101,114))
+        if b and b.Enabled and not z then
+            local c=b:FindFirstChild(__(67,111,109,109,117,110,105,99,97,116,101))
+            if c then c:FireServer(__(112,97,115,115)) z=true end
+        elseif not(b and b.Enabled) then z=false end
+    end
+    if F.c and A() and not w then
+        local c=P.Character
+        if c then
+            local h=c:FindFirstChildOfClass(__(72,117,109,97,110,111,105,100))
+            if h and h.Health>0 and tick()-t>2 then
+                h.Health=0
+                w=true
+            end
+        end
+    end
+    if F.e and A() and B() then
+        local e=workspace:FindFirstChild(__(69,102,102,101,99,116,115))
+        if e then
+            local f=false
+            for _,v in ipairs(e:GetChildren()) do
+                local n=v.Name:lower()
+                if n:find(__(100,111,116)) or n:find(__(99,114,105,116)) then
+                    f=true
+                    if not k then C() k=true end
+                    break
+                end
+            end
+            if not f then k=false end
+        end
+    end
+end)
